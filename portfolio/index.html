@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATYA HANVITHA GOLI - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS for enhanced aesthetics */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #eef2f6; /* Lighter, modern background */
+            color: #333;
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            padding-top: 0; /* No space for fixed navigation bar as it's removed */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Hero Section Styling - now contains the navigation */
+        .hero-section {
+            background: linear-gradient(135deg,#0f2027 0%, #54727a   100%); /* Gradient background */
+            color: #ffffff;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative; /* Needed for absolute positioning of hamburger/nav-links */
+            overflow: hidden;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid #ffffff; /* White border for contrast */
+            box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2); /* Outer glow effect */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            margin-bottom: 1.5rem;
+        }
+        .profile-img:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+        
+        .hero-section h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .hero-section p {
+            font-size: 1.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        .social-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            background-color: rgba(255, 255, 255, 0.15);
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+        .social-link svg, .social-link i {
+            margin-right: 0.5rem;
+        }
+
+        /* Hamburger Menu Icon */
+        .hamburger-menu {
+            display: block; /* Always visible to be clicked */
+            cursor: pointer;
+            font-size: 1.8rem; /* Slightly larger for better tap target */
+            color: #ffffff; /* White color to stand out on gradient */
+            padding: 0.5rem;
+            position: absolute; /* Position relative to hero-section */
+            top: 1.5rem; /* Distance from top of hero-section */
+            right: 1.5rem; /* Distance from right of hero-section */
+            z-index: 1001; /* Ensure it's above other content */
+            background-color: rgba(0,0,0,0.2); /* Slight background for visibility */
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .hamburger-menu:hover {
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        /* Navigation Links (hidden by default, toggled by hamburger) */
+        .nav-links {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            position: absolute;
+            top: 5rem; /* Position below hamburger, adjust as needed */
+            right: 1.5rem;
+            background-color: #8ca8af; /* White background for the dropdown */
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            min-width: 180px; /* Ensure links have enough space */
+            z-index: 999; /* Below hamburger, above other content */
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .nav-links.active {
+            display: flex; /* Show when active */
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .nav-link {
+            color: #4a5568;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            white-space: nowrap;
+            text-align: left; /* Align text left in dropdown */
+        }
+        .nav-link:hover {
+            background-color: #e0e7ff;
+            color: #3f51b5;
+        }
+
+        /* General Section Styling */
+        section {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
+            margin-bottom: 2.5rem;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: #4a5568; /* Darker grey for headings */
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80px; /* Underline effect */
+            height: 4px;
+            background: linear-gradient(90deg, #727688 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+        h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Skill & List Badges */
+        .skill-badge, .list-badge {
+            background-color: #a4b1b5; /* Lighter blue background */
+            color: #182e38; /* Darker blue text */
+            padding: 0.6rem 1.2rem;
+            border-radius: 9999px;
+            margin-right: 0.75rem;
+            margin-bottom: 0.75rem;
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .skill-badge:hover, .list-badge:hover {
+            background-color: #dfeff4; /* Darker on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .list-badge i {
+            margin-right: 0.5rem; /* Space between icon and text */
+        }
+
+        /* Project & Experience Cards */
+        .project-card, .experience-item {
+            background-color: #eef2f6; /* Very light blue for cards */
+            padding: 1.75rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .project-card:hover, .experience-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .project-card h3, .experience-item h3 {
+            color: #182e38; /* Deeper blue for titles */
+            font-size: 1.6rem;
+        }
+        .project-card p, .experience-item p, .experience-item ul {
+            color: #555;
+        }
+        .experience-item ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-top: 0.75rem;
+        }
+        .view-project {
+            color: #4a5568;   /*  ONLY this text */
+        }
+        .view-project:hover {
+            color: #0f172a;
+        }
+/* ===== CENTER TIMELINE ===== */
+.timeline-center {
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 0;
+}
+
+/* vertical line in middle */
+.timeline-center::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: #cbd5e1;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+/* timeline item */
+.timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 20px 40px;
+    box-sizing: border-box;
+}
+
+/* LEFT side */
+.timeline-item.left {
+    left: 0;
+    text-align: right;
+}
+
+/* RIGHT side */
+.timeline-item.right {
+    left: 50%;
+    text-align: left;
+}
+
+/* dot */
+.timeline-dot {
+    position: absolute;
+    top: 40px;
+    width: 16px;
+    height: 16px;
+    background:#182e38 ;
+    border-radius: 50%;
+    border: 4px solid #dfeff4;
+    z-index: 10;
+}
+
+/* dot positioning */
+.timeline-item.left .timeline-dot {
+    right: -8px;
+}
+
+.timeline-item.right .timeline-dot {
+    left: -8px;
+}
+
+/* card */
+.timeline-card {
+    background: #f8fafc;
+    padding: 20px 24px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* badge */
+.internship-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #dfeff4;
+    color: #182e38;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* date */
+.timeline-date {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin: 6px 0 12px;
+}
+
+/* description */
+.timeline-desc {
+    color: #475569;
+    line-height: 1.6;
+}
+
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+    .timeline-center::before {
+        left: 8px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 40px;
+        padding-right: 20px;
+        text-align: left;
+    }
+
+    .timeline-item.left,
+    .timeline-item.right {
+        left: 0;
+    }
+
+    .timeline-dot {
+        left: 0;
+        right: auto;
+    }
+}
+/* ===== Education Cards ===== */
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.education-card {
+    background: #ffffff;
+    padding: 1.75rem;
+    border-radius: 1rem;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.education-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+}
+
+.edu-year {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.education-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.education-card p {
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+}
+
+.edu-score {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2.5rem;
+            color: #7f8c8d;
+            font-size: 1rem;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            margin-top: 2rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) { /* Adjust breakpoint for larger tablets/laptops */
+            /* Hamburger and nav-links are handled by absolute positioning within hero-section */
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            .hero-section p {
+                font-size: 1.2rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            h3 {
+                font-size: 1.4rem;
+            }
+            .social-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            .hero-section {
+                padding: 2rem 1rem;
+            }
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            .hero-section p {
+                font-size: 1rem;
+            }
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+            .social-link {
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 0.5rem;
+            }
+            .social-link svg, .social-link i {
+                margin-right: 0;
+                margin-bottom: 0.25rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container">
+        <!-- Hero Section - now contains the navigation elements -->
+        <section class="hero-section">
+            <div class="hamburger-menu" id="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="#about" class="nav-link">About Me</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#certificates" class="nav-link">Certificates</a>
+                <a href="#achievements" class="nav-link">Achievements</a>
+                <a href="#languages" class="nav-link">Languages</a>
+                <a href="#interests" class="nav-link">Interests</a>
+            </div>
+            <img src="WhatsApp Image 2026-01-26 at 11.48.22 AM.jpeg" alt="Satya Hanvitha Goli" class="profile-img mx-auto">
+            <h1 class="text-white">SATYA HANVITHA GOLI</h1>
+            <p class="text-white">Aspiring Software Developer </p>
+            <div class="flex flex-wrap justify-center gap-4 text-lg">
+                <a class="social-link">
+                    <i class="fas fa-envelope"></i>
+                    satyahanvitha@gmail.com
+                </a>
+                <a class="social-link">
+                    <i class="fas fa-phone-alt"></i>
+                    +91 8309558246
+                </a>
+                <a href="https://www.linkedin.com/in/satya-hanvitha-goli-202b92294?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/23A31A0527" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
+                <a href="https://www.codechef.com/users/hanvitha_06" target="_blank" class="social-link">
+                    <i class="fas fa-code"></i>
+                    CodeChef
+                </a>
+                <a href="https://leetcode.com/u/23A31A0527/" target="_blank" class="social-link"> <!-- Replace with actual LeetCode profile -->
+                    <i class="fas fa-terminal"></i>
+                    LeetCode
+                </a>
+                <a href="https://www.hackerrank.com/profile/23A31A0527" target="_blank" class="social-link"> <!-- Replace with actual HackerRank profile -->
+                    <i class="fas fa-laptop-code"></i>
+                    HackerRank
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <p id="about-text" class="text-gray-700 text-lg leading-relaxed mb-4">
+                I am Satya Hanvitha Goli, a passionate and driven B.Tech - CSE student at Pragati Engineering College, currently maintaining a CGPA of 8.98. With a strong foundation in C, Python, Java, and SQL, I am eager to apply my skills in software development, data structures, and web technologies (HTML, CSS, JS). My virtual internships at Google (Android Developer, AI-ML) and AWS Cloud have provided me with practical experience in cutting-edge fields. I am dedicated to continuous learning and problem-solving, as demonstrated by my active participation on platforms like HackerRank and LeetCode. I am excited to contribute to innovative projects and grow as a technology professional.
+            </p>
+        </section>
+
+        <!-- Education Section -->
+<section id="education">
+    <h2>Education</h2>
+
+    <div class="education-grid">
+        <!-- Card 1 -->
+        <div class="education-card">
+            <span class="edu-year">2023 – 2027</span>
+            <h3>Pragati Engineering College</h3>
+            <p>B.Tech – Computer Science Engineering</p>
+            <span class="edu-score">CGPA: 8.98</span>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="education-card">
+            <span class="edu-year">2021 – 2023</span>
+            <h3>Aditya Junior College</h3>
+            <p>Intermediate (MPC)</p>
+            <span class="edu-score">98%</span>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="education-card">
+            <span class="edu-year">2020 – 2021</span>
+            <h3>ST. Joseph’s Convent School</h3>
+            <p>High School</p>
+            <span class="edu-score">83%</span>
+        </div>
+    </div>
+</section>
+
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="flex flex-wrap">
+                <span class="skill-badge">C</span>
+                <span class="skill-badge">Python</span>
+                <span class="skill-badge">Java</span>
+                <span class="skill-badge">SQL</span>
+                <span class="skill-badge">Data Structures</span>
+                <span class="skill-badge">HTML</span>
+                <span class="skill-badge">CSS</span>
+                <span class="skill-badge">JavaScript</span>
+                <span class="skill-badge">Node.js</span>
+                <span class="skill-badge">AI/ML Fundamentals</span>
+                <span class="skill-badge">Cloud Fundamentals (AWS)</span>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="project-card">
+                <h3>CollabNest - Google Hackathon 2025</h3>
+                <p class="text-gray-700 mb-3">Built a real-time collaboration platform for remote teams using Node.js, WebSockets, and Firebase. Enabled live chat, task boards, and file sharing.</p>
+                <!-- Placeholder for project link -->
+                <a href="https://team-spark-ignite-collab.lovable.app/" class="social-link view-project !bg-blue-500 hover:!bg-blue-600 !py-2 !px-4 !rounded-md !text-sm">View Project <i class="fas fa-external-link-alt ml-2"></i></a>
+            </div>
+            <div class="project-card">
+                <h3>Amazon Clone (Frontend)</h3>
+                <p class="text-gray-700 mb-3">Developed a responsive Amazon Clone frontend using HTML, CSS, and JavaScript, replicating core e-commerce UI components like homepage, product listings, cart, and navigation bar.</p>
+                <a href="https://23a31a0527.github.io/amazon-clone/" class="social-link view-project !bg-blue-500 hover:!bg-blue-600 !py-2 !px-4 !rounded-md !text-sm">View Project <i class="fas fa-external-link-alt ml-2"></i></a>
+                <!-- Placeholder for project link -->
+                
+            </div>
+        </section>
+
+<!-- Experience Section -->
+<section id="experience">
+    <h2>Experience</h2>
+
+    <div class="timeline-center">
+
+        <!-- LEFT -->
+        <div class="timeline-item left">
+            <div class="timeline-card">
+                <span class="internship-badge">
+                    <i class="fas fa-briefcase"></i> Internship
+                </span>
+
+                <h3>Google Android Developer Virtual Internship</h3>
+
+                <p class="timeline-date">
+                    <i class="fas fa-calendar-alt"></i>
+                    Apr 2025 – Jun 2025
+                </p>
+
+                <p class="timeline-desc">
+                    Gained hands-on experience in Android app development using
+                    Java/Kotlin and Android Studio. Built mobile applications
+                    following modern Android architecture patterns.
+                </p>
+            </div>
+            <span class="timeline-dot"></span>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="timeline-item right">
+            <span class="timeline-dot"></span>
+            <div class="timeline-card">
+                <span class="internship-badge">
+                    <i class="fas fa-briefcase"></i> Internship
+                </span>
+
+                <h3>Google AI-ML Virtual Internship</h3>
+
+                <p class="timeline-date">
+                    <i class="fas fa-calendar-alt"></i>
+                    Jan 2025 – Mar 2025
+                </p>
+
+                <p class="timeline-desc">
+                    Worked on AI & Machine Learning fundamentals including
+                    supervised, unsupervised, and reinforcement learning.
+                </p>
+            </div>
+        </div>
+
+        <!-- LEFT -->
+        <div class="timeline-item left">
+            <div class="timeline-card">
+                <span class="internship-badge">
+                    <i class="fas fa-briefcase"></i> Internship
+                </span>
+
+                <h3>AWS Cloud Virtual Internship</h3>
+
+                <p class="timeline-date">
+                    <i class="fas fa-calendar-alt"></i>
+                    Oct 2024 – Dec 2024
+                </p>
+
+                <p class="timeline-desc">
+                    Gained experience in cloud fundamentals including compute,
+                    storage, databases, and networking using AWS services.
+                </p>
+            </div>
+            <span class="timeline-dot"></span>
+        </div>
+
+    </div>
+</section>
+
+
+
+        <!-- Certificates Section -->
+        <section id="certificates">
+            <h2>Certificates</h2>
+            <div class="flex flex-wrap">
+                <span class="list-badge"><i class="fas fa-certificate"></i>Salesforce Agentforce Specialist</span>
+                <span class="list-badge"><i class="fas fa-certificate"></i>NPTEL: Python For Data Science - Scored 64%</span>
+                <span class="list-badge"><i class="fas fa-award"></i>Gen AI in Data Analytics by META</span>
+                <span class="list-badge"><i class="fas fa-cloud"></i>Getting Started with Cloud Shell and gcloud</span>
+                <span class="list-badge"><i class="fas fa-code-branch"></i>Data Structures and Algorithms in Java Infosys Springboard</span>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements">
+            <h2>Achievements</h2>
+            <div class="flex flex-wrap">
+                <span class="list-badge"><i class="fas fa-shield-alt"></i>Published a research paper titled “Federated Learning for Privacy preserving Health Monitoring in Multi
+Hospital Smart Healthcare Systems”in MAT Journal , Volume 2,Issue 3, Year 2025.</span>
+                <span class="list-badge"><i class="fas fa-star"></i>5 Star Badge in C, SQL, JAVA and Python - HackerRank</span>
+                <span class="list-badge"><i class="fas fa-medal"></i>100 Days Badge in LeetCode</span>
+                <span class="list-badge"><i class="fas fa-trophy"></i>Salesforce Agent Blazer Innovator - Earned 57 Badges</span>
+                <span class="list-badge"><i class="fas fa-check-circle"></i>Accomplished Azure Fundamentals Challenge on February, 2024</span>
+            </div>
+        </section>
+
+        <!-- Languages Section -->
+        <section id="languages">
+            <h2>Languages</h2>
+            <div class="flex flex-wrap">
+                <span class="list-badge"><i class="fas fa-globe-asia"></i>Telugu - Native</span>
+                <span class="list-badge"><i class="fas fa-globe-americas"></i>English - Fluent</span>
+            </div>
+        </section>
+
+        <!-- Interests Section -->
+        <section id="interests">
+            <h2>Interests</h2>
+            <div class="flex flex-wrap">
+                <span class="list-badge"><i class="fas fa-shuttlecock"></i>Playing Badminton</span>
+                <span class="list-badge"><i class="fas fa-book-open"></i>Reading Books</span>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Satya Hanvitha Goli. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Hamburger menu functionality
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburgerMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked (for mobile)
+        navLinks.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Since the navbar is no longer fixed, adjust scroll position without its height
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20, // 20px extra padding for better visual alignment
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Simple scroll-reveal animation for sections
+        const sections = document.querySelectorAll('section:not(.hero-section)');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
